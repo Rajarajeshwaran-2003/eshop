@@ -1,0 +1,490 @@
+{% extends 'base.html' %}
+
+{% block title %}Login - E-commerce{% endblock %}
+
+{% block content %}
+<section class="auth-section animate__animated animate__fadeIn">
+    <div class="auth-container glass-card">
+        <div class="auth-header gradient-bg">
+            <h1 class="auth-title">Welcome Back</h1>
+            <p class="auth-subtitle">Login to access your account</p>
+        </div>
+        
+        <!-- Display messages -->
+        {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} animate__animated animate__fadeIn">
+                {{ message }}
+                <i class="fas fa-times close-message"></i>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        
+        <form method="POST" action="{% url 'login' %}?next={% url 'product_list' %}" class="auth-form">
+            {% csrf_token %}
+            
+            <div class="form-group">
+                {% for field in form %}
+                <div class="input-group">
+                    <label for="{{ field.id_for_label }}">
+                        <i class="fas fa-{% if field.name == 'username' %}user{% else %}lock{% endif %}"></i>
+                        {{ field.label }}
+                    </label>
+                    {{ field }}
+                    {% if field.help_text %}
+                    <small class="help-text">{{ field.help_text }}</small>
+                    {% endif %}
+                    {% for error in field.errors %}
+                    <div class="error-message">
+                        <i class="fas fa-exclamation-circle"></i> {{ error }}
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endfor %}
+            </div>
+            
+            <div class="form-options">
+                <label class="remember-me">
+                    <input type="checkbox" name="remember">
+                    <span class="checkmark"></span>
+                    Remember me
+                </label>
+            </div>
+            
+            <button type="submit" class="auth-button gradient-button">
+                <span>Login</span>
+                <i class="fas fa-sign-in-alt"></i>
+            </button>
+            
+            <div class="auth-divider">
+                <span>or continue with</span>
+            </div>
+            
+            <div class="social-login">
+                <button type="button" class="social-button google">
+                    <i class="fab fa-google"></i>
+                </button>
+                <button type="button" class="social-button facebook">
+                    <i class="fab fa-facebook-f"></i>
+                </button>
+                <button type="button" class="social-button twitter">
+                    <i class="fab fa-twitter"></i>
+                </button>
+            </div>
+        </form>
+        
+        <div class="auth-footer">
+            Don't have an account? <a href="{% url 'register' %}" class="auth-link">Sign up</a>
+        </div>
+    </div>
+</section>
+
+<style>
+    /* Base Styles */
+    :root {
+        --primary-gradient: linear-gradient(135deg, #6e48aa 0%, #00b4d8 100%);
+        --glass-bg: rgba(26, 26, 46, 0.7);
+        --glass-border: rgba(255, 255, 255, 0.1);
+        --text-light: rgba(255, 255, 255, 0.9);
+        --text-lighter: rgba(255, 255, 255, 0.7);
+    }
+    
+    .auth-section {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        background: url('https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80') no-repeat center center;
+        background-size: cover;
+        padding: 2rem;
+    }
+    
+    .glass-card {
+        background: var(--glass-bg);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border-radius: 16px;
+        border: 1px solid var(--glass-border);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        overflow: hidden;
+        width: 100%;
+        max-width: 450px;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .glass-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+    }
+    
+    .auth-header {
+        padding: 2rem;
+        text-align: center;
+        background: var(--primary-gradient);
+        color: white;
+    }
+    
+    .auth-title {
+        margin: 0;
+        font-size: 2rem;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+    }
+    
+    .auth-subtitle {
+        margin: 0.5rem 0 0;
+        font-size: 1rem;
+        opacity: 0.9;
+        font-weight: 300;
+    }
+    
+    .auth-form {
+        padding: 2rem;
+    }
+    
+    .form-group {
+        margin-bottom: 1.5rem;
+    }
+    
+    .input-group {
+        margin-bottom: 1.2rem;
+        position: relative;
+    }
+    
+    .input-group label {
+        display: flex;
+        align-items: center;
+        margin-bottom: 0.75rem;
+        font-weight: 500;
+        color: var(--text-light);
+    }
+    
+    .input-group label i {
+        margin-right: 10px;
+        width: 16px;
+        text-align: center;
+    }
+    
+    .input-group input {
+        width: 100%;
+        padding: 0.75rem 1rem 0.75rem 2.5rem;
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 8px;
+        font-size: 1rem;
+        color: var(--text-light);
+        transition: all 0.3s ease;
+    }
+    
+    .input-group input::placeholder {
+        color: rgba(255, 255, 255, 0.5);
+    }
+    
+    .input-group input:focus {
+        background: rgba(255, 255, 255, 0.15);
+        border-color: rgba(110, 72, 170, 0.8);
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(110, 72, 170, 0.3);
+    }
+    
+    .help-text {
+        display: block;
+        margin-top: 0.5rem;
+        font-size: 0.8rem;
+        color: var(--text-lighter);
+    }
+    
+    .error-message {
+        display: flex;
+        align-items: center;
+        color: #ff6b6b;
+        font-size: 0.85rem;
+        margin-top: 0.5rem;
+    }
+    
+    .error-message i {
+        margin-right: 5px;
+    }
+    
+    .form-options {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: 1.5rem 0;
+    }
+    
+    .remember-me {
+        display: flex;
+        align-items: center;
+        color: var(--text-lighter);
+        font-size: 0.9rem;
+        cursor: pointer;
+    }
+    
+    .remember-me input {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+    }
+    
+    .checkmark {
+        position: relative;
+        height: 18px;
+        width: 18px;
+        background-color: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        border-radius: 4px;
+        margin-right: 8px;
+    }
+    
+    .remember-me:hover input ~ .checkmark {
+        background-color: rgba(255, 255, 255, 0.2);
+    }
+    
+    .remember-me input:checked ~ .checkmark {
+        background: var(--primary-gradient);
+        border-color: transparent;
+    }
+    
+    .checkmark:after {
+        content: "";
+        position: absolute;
+        display: none;
+    }
+    
+    .remember-me input:checked ~ .checkmark:after {
+        display: block;
+    }
+    
+    .remember-me .checkmark:after {
+        left: 6px;
+        top: 2px;
+        width: 5px;
+        height: 10px;
+        border: solid white;
+        border-width: 0 2px 2px 0;
+        transform: rotate(45deg);
+    }
+    
+    .forgot-password {
+        color: var(--text-lighter);
+        font-size: 0.9rem;
+        text-decoration: none;
+        transition: color 0.2s ease;
+    }
+    
+    .forgot-password:hover {
+        color: white;
+        text-decoration: underline;
+    }
+    
+    .gradient-button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.75rem;
+        width: 100%;
+        padding: 0.75rem;
+        background: var(--primary-gradient);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 1rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+        z-index: 1;
+    }
+    
+    .gradient-button::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, #00b4d8 0%, #6e48aa 100%);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        z-index: -1;
+    }
+    
+    .gradient-button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0, 180, 216, 0.3);
+    }
+    
+    .gradient-button:hover::before {
+        opacity: 1;
+    }
+    
+    .gradient-button:active {
+        transform: translateY(0);
+    }
+    
+    .auth-divider {
+        display: flex;
+        align-items: center;
+        margin: 1.5rem 0;
+        color: var(--text-lighter);
+        font-size: 0.8rem;
+    }
+    
+    .auth-divider::before,
+    .auth-divider::after {
+        content: "";
+        flex: 1;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .auth-divider::before {
+        margin-right: 1rem;
+    }
+    
+    .auth-divider::after {
+        margin-left: 1rem;
+    }
+    
+    .social-login {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .social-button {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        border: none;
+        background: rgba(255, 255, 255, 0.1);
+        color: white;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .social-button:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+    
+    .social-button.google:hover {
+        background: #DB4437;
+    }
+    
+    .social-button.facebook:hover {
+        background: #4267B2;
+    }
+    
+    .social-button.twitter:hover {
+        background: #1DA1F2;
+    }
+    
+    .auth-footer {
+        text-align: center;
+        padding: 1rem 2rem 2rem;
+        color: var(--text-lighter);
+        font-size: 0.9rem;
+    }
+    
+    .auth-link {
+        color: white;
+        font-weight: 500;
+        text-decoration: none;
+        transition: color 0.2s ease;
+    }
+    
+    .auth-link:hover {
+        color: #00b4d8;
+        text-decoration: underline;
+    }
+    
+    /* Message styles */
+    .alert {
+        position: relative;
+        padding: 0.75rem 2.5rem 0.75rem 1.25rem;
+        margin: 0 2rem 1rem;
+        border-radius: 8px;
+        font-size: 0.9rem;
+        display: flex;
+        align-items: center;
+    }
+    
+    .alert-success {
+        background-color: rgba(40, 167, 69, 0.2);
+        color: #28a745;
+        border: 1px solid rgba(40, 167, 69, 0.3);
+    }
+    
+    .alert-error {
+        background-color: rgba(220, 53, 69, 0.2);
+        color: #dc3545;
+        border: 1px solid rgba(220, 53, 69, 0.3);
+    }
+    
+    .close-message {
+        position: absolute;
+        right: 1rem;
+        cursor: pointer;
+        opacity: 0.7;
+        transition: opacity 0.2s ease;
+    }
+    
+    .close-message:hover {
+        opacity: 1;
+    }
+    
+    /* Responsive adjustments */
+    @media (max-width: 576px) {
+        .auth-section {
+            padding: 1rem;
+        }
+        
+        .glass-card {
+            border-radius: 12px;
+        }
+        
+        .auth-header {
+            padding: 1.5rem;
+        }
+        
+        .auth-title {
+            font-size: 1.5rem;
+        }
+        
+        .auth-form {
+            padding: 1.5rem;
+        }
+        
+        .form-options {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 0.5rem;
+        }
+    }
+</style>
+
+<!-- Animation and Icon Libraries -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+
+<script>
+    // Close message functionality
+    document.querySelectorAll('.close-message').forEach(button => {
+        button.addEventListener('click', (e) => {
+            e.target.closest('.alert').style.opacity = '0';
+            setTimeout(() => {
+                e.target.closest('.alert').remove();
+            }, 300);
+        });
+    });
+</script>
+{% endblock %}

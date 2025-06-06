@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+
+{% block title %}Contact Us - Get in Touch{% endblock %}
+
+{% block content %}
+<section class="contact-section" style="background-color: #1a1a2e; min-height: 100vh; padding: 4rem 0; font-family: 'Inter', sans-serif;">
+    <div class="container" style="max-width: 1200px; margin: 0 auto; padding: 0 2rem;">
+        <div class="contact-header" style="text-align: center; margin-bottom: 4rem;">
+            <h1 style="font-size: 3rem; color: #ffffff; margin-bottom: 1.5rem; font-weight: 700; position: relative;">
+                Contact <span style="color: #00b4d8;">Us</span>
+                <span style="display: block; width: 120px; height: 5px; background: linear-gradient(90deg, #00b4d8, #ef233c); margin: 1.5rem auto; border-radius: 3px;"></span>
+            </h1>
+            <p style="font-size: 1.2rem; color: #e2e2e2; max-width: 700px; margin: 0 auto; line-height: 1.8;">
+                We'd love to hear from you! Reach out through any of these channels or use our contact form.
+            </p>
+        </div>
+
+        <div class="contact-methods" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-bottom: 4rem;">
+            <div class="contact-card" style="background: rgba(255,255,255,0.05); padding: 2.5rem; border-radius: 16px; transition: all 0.3s ease; backdrop-filter: blur(10px);" onmouseover="this.style.transform='translateY(-10px)'; this.style.boxShadow='0 15px 30px rgba(0,180,216,0.2)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+                <div style="font-size: 3rem; color: #00b4d8; margin-bottom: 1.5rem; text-align: center;">
+                    <i class="fas fa-envelope"></i>
+                </div>
+                <h2 style="color: #ffffff; font-size: 1.8rem; text-align: center; margin-bottom: 1.5rem;">Email Us</h2>
+                <p style="color: #c5c5c5; text-align: center; line-height: 1.7; font-size: 1.1rem;">
+                    kannarajesh057@gmail.com<br>
+                    <span style="font-size: 0.9rem; color: #a0a0a0;">Typically responds within 2 hours</span>
+                </p>
+                <div style="text-align: center; margin-top: 2rem;">
+                    <a href="mailto:kannarajesh057@gmail.com" style="background: #00b4d8; color: white; padding: 0.8rem 2rem; border-radius: 50px; text-decoration: none; font-weight: 600; display: inline-block; transition: all 0.3s ease;" onmouseover="this.style.background='#0093b8'; this.style.transform='scale(1.05)'" onmouseout="this.style.background='#00b4d8'; this.style.transform='scale(1)'">Send Email</a>
+                </div>
+            </div>
+
+            <div class="contact-card" style="background: rgba(255,255,255,0.05); padding: 2.5rem; border-radius: 16px; transition: all 0.3s ease; backdrop-filter: blur(10px);" onmouseover="this.style.transform='translateY(-10px)'; this.style.boxShadow='0 15px 30px rgba(0,180,216,0.2)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+                <div style="font-size: 3rem; color: #00b4d8; margin-bottom: 1.5rem; text-align: center;">
+                    <i class="fas fa-phone-alt"></i>
+                </div>
+                <h2 style="color: #ffffff; font-size: 1.8rem; text-align: center; margin-bottom: 1.5rem;">Call Us</h2>
+                <p style="color: #c5c5c5; text-align: center; line-height: 1.7; font-size: 1.1rem;">
+                    +91 12345 67890<br>
+                    <span style="font-size: 0.9rem; color: #a0a0a0;">Mon-Fri: 9AM-6PM IST</span>
+                </p>
+                <div style="text-align: center; margin-top: 2rem;">
+                    <a href="tel:+911234567890" style="background: #00b4d8; color: white; padding: 0.8rem 2rem; border-radius: 50px; text-decoration: none; font-weight: 600; display: inline-block; transition: all 0.3s ease;" onmouseover="this.style.background='#0093b8'; this.style.transform='scale(1.05)'" onmouseout="this.style.background='#00b4d8'; this.style.transform='scale(1)'">Call Now</a>
+                </div>
+            </div>
+
+            <div class="contact-card" style="background: rgba(255,255,255,0.05); padding: 2.5rem; border-radius: 16px; transition: all 0.3s ease; backdrop-filter: blur(10px);" onmouseover="this.style.transform='translateY(-10px)'; this.style.boxShadow='0 15px 30px rgba(0,180,216,0.2)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+                <div style="font-size: 3rem; color: #00b4d8; margin-bottom: 1.5rem; text-align: center;">
+                    <i class="fas fa-map-marker-alt"></i>
+                </div>
+                <h2 style="color: #ffffff; font-size: 1.8rem; text-align: center; margin-bottom: 1.5rem;">Visit Us</h2>
+                <p style="color: #c5c5c5; text-align: center; line-height: 1.7; font-size: 1.1rem;">
+                    123, Main Road<br>
+                    Coimbatore, Tamil Nadu<br>
+                    <span style="font-size: 0.9rem; color: #a0a0a0;">By appointment only</span>
+                </p>
+                <div style="text-align: center; margin-top: 2rem;">
+                    <a href="https://maps.google.com" target="_blank" style="background: #00b4d8; color: white; padding: 0.8rem 2rem; border-radius: 50px; text-decoration: none; font-weight: 600; display: inline-block; transition: all 0.3s ease;" onmouseover="this.style.background='#0093b8'; this.style.transform='scale(1.05)'" onmouseout="this.style.background='#00b4d8'; this.style.transform='scale(1)'">Get Directions</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="contact-form-container" style="background: rgba(255,255,255,0.05); padding: 3rem; border-radius: 16px; backdrop-filter: blur(10px); max-width: 800px; margin: 0 auto;">
+            <h2 style="color: #ffffff; font-size: 2rem; text-align: center; margin-bottom: 2rem;">Send Us a Message</h2>
+            <form style="display: grid; gap: 1.5rem;">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+                    <div>
+                        <label style="display: block; color: #c5c5c5; margin-bottom: 0.5rem; font-size: 1rem;">First Name</label>
+                        <input type="text" style="width: 100%; padding: 1rem; border-radius: 8px; border: none; background: rgba(255,255,255,0.1); color: white; font-size: 1rem;">
+                    </div>
+                    <div>
+                        <label style="display: block; color: #c5c5c5; margin-bottom: 0.5rem; font-size: 1rem;">Last Name</label>
+                        <input type="text" style="width: 100%; padding: 1rem; border-radius: 8px; border: none; background: rgba(255,255,255,0.1); color: white; font-size: 1rem;">
+                    </div>
+                </div>
+                <div>
+                    <label style="display: block; color: #c5c5c5; margin-bottom: 0.5rem; font-size: 1rem;">Email</label>
+                    <input type="email" style="width: 100%; padding: 1rem; border-radius: 8px; border: none; background: rgba(255,255,255,0.1); color: white; font-size: 1rem;">
+                </div>
+                <div>
+                    <label style="display: block; color: #c5c5c5; margin-bottom: 0.5rem; font-size: 1rem;">Message</label>
+                    <textarea rows="5" style="width: 100%; padding: 1rem; border-radius: 8px; border: none; background: rgba(255,255,255,0.1); color: white; font-size: 1rem;"></textarea>
+                </div>
+                <button type="submit" style="background: #00b4d8; color: white; padding: 1rem; border-radius: 50px; border: none; font-weight: 600; font-size: 1.1rem; cursor: pointer; transition: all 0.3s ease; width: 200px; margin: 0 auto;" onmouseover="this.style.background='#0093b8'; this.style.transform='scale(1.05)'" onmouseout="this.style.background='#00b4d8'; this.style.transform='scale(1)'">Send Message</button>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}

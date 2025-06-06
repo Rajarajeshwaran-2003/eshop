@@ -1,0 +1,429 @@
+{% extends 'base.html' %}
+
+{% block title %}Your Cart - E-commerce{% endblock %}
+
+{% block content %}
+<section class="cart-section animate__animated animate__fadeIn">
+    <div class="container">
+        <div class="section-header">
+            <h1 class="cart-title">Your Shopping Cart</h1>
+            <div class="divider-gradient"></div>
+        </div>
+
+        {% if items %}
+        <div class="cart-table-container glass-card">
+            <table class="cart-table">
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                        <th>Subtotal</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in items %}
+                    <tr class="cart-item animate__animated animate__fadeInUp" style="animation-delay: {{ forloop.counter0|divisibleby:2|yesno:'0s,0.1s' }};">
+                        <td class="product-cell">
+                            <div class="product-info">
+                                <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" class="product-image">
+                                <div>
+                                    <span class="product-name">{{ item.product.name }}</span>
+                                    <span class="in-stock-badge">In Stock</span>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="quantity-cell">
+                            <div class="quantity-control">
+                                <button class="qty-btn">−</button>
+                                <span>{{ item.qty }}</span>
+                                <button class="qty-btn">+</button>
+                            </div>
+                        </td>
+                        <td class="price-cell">
+                            <span class="current-price">₹{{ item.product.price|floatformat:2 }}</span>
+                            {% if item.product.compare_at_price %}
+                            <span class="compare-price">₹{{ item.product.compare_at_price|floatformat:2 }}</span>
+                            {% endif %}
+                        </td>
+                        <td class="subtotal-cell">₹{{ item.get_total|floatformat:2 }}</td>
+                        <td class="action-cell">
+                            <a href="{% url 'remove_from_cart' item.product.id %}" class="remove-btn" onclick="return confirm('Are you sure you want to remove this item?');">
+                                <i class="fas fa-trash-alt"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    <tr class="total-row">
+                        <td colspan="3" class="total-label">Total:</td>
+                        <td colspan="2" class="total-amount">₹{{ total|floatformat:2 }}</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="cart-actions">
+                <a href="{% url 'checkout' %}" class="checkout-btn pulse-hover">
+                    <i class="fas fa-lock"></i> Secure Checkout
+                </a>
+                <a href="{% url 'product_list' %}" class="continue-btn">
+                    <i class="fas fa-arrow-left"></i> Continue Shopping
+                </a>
+            </div>
+        </div>
+        {% else %}
+        <div class="empty-cart glass-card animate__animated animate__fadeIn">
+            <div class="empty-cart-icon">
+                <i class="fas fa-shopping-cart"></i>
+            </div>
+            <h3>Your cart feels lonely</h3>
+            <p>Explore our collection and find something special</p>
+            <a href="{% url 'product_list' %}" class="shop-btn glow-on-hover">
+                <i class="fas fa-store"></i> Start Shopping
+            </a>
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+<style>
+    :root {
+        --dark-bg: #0f0f1a;
+        --darker-bg: #0a0a12;
+        --primary-accent: #00b4d8;
+        --secondary-accent: #6e48aa;
+        --text-light: #e6f1ff;
+        --text-muted: #8892b0;
+        --glass-bg: rgba(15, 15, 26, 0.9);
+        --glass-border: rgba(255, 255, 255, 0.05);
+    }
+
+    /* Base Styles */
+    body {
+        background-color: var(--dark-bg);
+        color: var(--text-light);
+    }
+
+    .cart-section {
+        padding: 3rem 0;
+        background: var(--dark-bg);
+        min-height: 70vh;
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 1.5rem;
+    }
+
+    .section-header {
+        margin-bottom: 2.5rem;
+        text-align: center;
+    }
+
+    .divider-gradient {
+        height: 3px;
+        background: linear-gradient(90deg, var(--primary-accent), var(--secondary-accent));
+        width: 150px;
+        margin: 0.5rem auto;
+        border-radius: 3px;
+    }
+
+    .cart-title {
+        font-size: 2.5rem;
+        background: linear-gradient(90deg, var(--primary-accent), var(--secondary-accent));
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        margin-bottom: 0.5rem;
+        font-weight: 700;
+    }
+
+    /* Glass Card Effect */
+    .glass-card {
+        background: var(--glass-bg);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border-radius: 12px;
+        border: 1px solid var(--glass-border);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        overflow: hidden;
+        padding: 2rem;
+    }
+
+    /* Cart Table Styles */
+    .cart-table {
+        width: 100%;
+        border-collapse: collapse;
+        color: var(--text-light);
+        background : rgba(20, 5, 80, 0.9);
+    }
+
+    .cart-table th {
+        background : rgba(20, 5, 80, 0.9);
+        padding: 1.25rem;
+        text-align: left;
+        font-weight: 600;
+        color: var(--primary-accent);
+        text-transform: uppercase;
+        font-size: 0.85rem;
+        letter-spacing: 1px;
+
+    }
+
+    .cart-table td {
+        padding: 1.25rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+        vertical-align: middle;
+        background : rgba(20, 5, 80, 0.9);
+    }
+
+    /* Product Cell */
+    .product-cell {
+        width: 40%;
+        background : rgba(20, 5, 80, 0.9);
+        
+        
+    }
+
+    .product-info {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+        background : rgba(20, 5, 80, 0.9);
+     
+    }
+
+    .product-image {
+        width: 80px;
+        height: 80px;
+        object-fit: cover;
+        border-radius: 8px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .product-name {
+        font-weight: 500;
+        font-size: 1.1rem;
+    }
+
+    .in-stock-badge {
+        display: inline-block;
+        background: rgba(0, 200, 83, 0.15);
+        color: #00c853;
+        padding: 0.25rem 0.75rem;
+        border-radius: 12px;
+        font-size: 0.75rem;
+        margin-top: 0.5rem;
+        border: 1px solid rgba(0, 200, 83, 0.3);
+    }
+
+    /* Quantity Cell */
+    .quantity-cell {
+        width: 15%;
+
+    }
+
+    .quantity-control {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .qty-btn {
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        color: var(--text-light);
+        width: 30px;
+        height: 30px;
+        border-radius: 6px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        
+    }
+
+    .qty-btn:hover {
+        background: var(--primary-accent);
+        color: var(--dark-bg);
+        border-color: transparent;
+    }
+
+    /* Price Cell */
+    .price-cell {
+        width: 15%;
+    }
+
+    .current-price {
+        font-weight: 600;
+        display: block;
+    }
+
+    .compare-price {
+        text-decoration: line-through;
+        color: var(--text-muted);
+        font-size: 0.85rem;
+    }
+
+    /* Action Cell */
+    .action-cell {
+        width: 15%;
+        text-align: center;
+    }
+
+    .remove-btn {
+        color: #ff5252;
+        text-decoration: none;
+        transition: all 0.2s ease;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: rgba(255, 82, 82, 0.1);
+    }
+
+    .remove-btn:hover {
+        background: rgba(255, 82, 82, 0.2);
+        transform: rotate(15deg);
+    }
+
+    /* Total Row */
+    .total-row {
+        background: rgba(0, 0, 0, 0.2);
+    }
+
+    .total-label {
+        text-align: right;
+        font-weight: 600;
+        color: var(--primary-accent);
+        font-size: 1.1rem;
+    }
+
+    .total-amount {
+        font-weight: 700;
+        font-size: 1.3rem;
+    }
+
+    /* Cart Actions */
+    .cart-actions {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 2.5rem;
+        gap: 1.5rem;
+    }
+
+    .checkout-btn, .continue-btn, .shop-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.75rem;
+        padding: 1rem 2rem;
+        border-radius: 8px;
+        font-weight: 600;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        border: none;
+        cursor: pointer;
+        font-size: 1rem;
+    }
+
+    .checkout-btn {
+        background: linear-gradient(135deg, var(--primary-accent) 0%, var(--secondary-accent) 100%);
+        color: white;
+        flex: 1;
+        justify-content: center;
+        box-shadow: 0 4px 15px rgba(0, 180, 216, 0.3);
+    }
+
+    .checkout-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 20px rgba(0, 180, 216, 0.4);
+    }
+
+    .continue-btn {
+        background: rgba(255, 255, 255, 0.05);
+        color: var(--text-light);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .continue-btn:hover {
+        background: rgba(255, 255, 255, 0.1);
+        transform: translateY(-3px);
+    }
+
+    /* Empty Cart */
+    .empty-cart {
+        text-align: center;
+        padding: 3rem 2rem;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    .empty-cart-icon {
+        font-size: 4rem;
+        color: var(--primary-accent);
+        margin-bottom: 1.5rem;
+    }
+
+    .empty-cart h3 {
+        font-size: 1.8rem;
+        margin-bottom: 1rem;
+    }
+
+    .empty-cart p {
+        font-size: 1.1rem;
+        color: var(--text-muted);
+        margin-bottom: 2rem;
+    }
+
+    .shop-btn {
+        background: linear-gradient(135deg, var(--primary-accent) 0%, var(--secondary-accent) 100%);
+        color: white;
+        padding: 1rem 2.5rem;
+    }
+
+    /* Animations */
+    .pulse-hover:hover {
+        animation: pulse 1s infinite;
+    }
+
+    .glow-on-hover:hover {
+        box-shadow: 0 0 15px var(--primary-accent);
+    }
+
+    @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.02); }
+        100% { transform: scale(1); }
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        .cart-actions {
+            flex-direction: column;
+        }
+        
+        .product-info {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+        
+        .product-image {
+            width: 60px;
+            height: 60px;
+        }
+        
+        .empty-cart {
+            padding: 2rem 1rem;
+        }
+    }
+</style>
+
+<!-- Animation and Icon Libraries -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+{% endblock %}

@@ -1,0 +1,323 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{% block title %}ShopEase | Premium E-commerce{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+    <!-- Font & Icon Libraries -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --dark-bg: #1a1a2e;
+            --darker-bg: #16213e;
+            --card-bg: rgba(30, 30, 50, 0.8);
+            --text-light: #e6e6e6;
+            --text-lighter: #ffffff;
+            --accent-color: #00b4d8;
+            --accent-hover: #0096c7;
+            --purple-accent: #6e48aa;
+            --purple-hover: #9d50bb;
+            --danger-color: #ff6b6b;
+            --border-radius: 12px;
+            --box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, var(--dark-bg), var(--darker-bg));
+            color: var(--text-light);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 999;
+            background: rgba(26, 26, 46, 0.9);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            color: white;
+            padding: 0.8rem 0;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: top 0.3s ease;
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: var(--text-light);
+            text-decoration: none;
+            padding: 0.6rem 1rem;
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        nav a:hover {
+            background: rgba(0, 180, 216, 0.2);
+            color: var(--text-lighter);
+            transform: translateY(-2px);
+        }
+
+        nav a strong {
+            font-weight: 600;
+            color: var(--text-lighter);
+        }
+
+        nav span {
+            color: var(--text-light);
+            font-weight: 500;
+            margin-right: 1rem;
+        }
+
+        .nav-left,
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .search-form {
+            display: flex;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .search-form:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .search-form input[type="text"] {
+            padding: 0.5rem 1rem;
+            border: none;
+            background: transparent;
+            color: var(--text-light);
+            min-width: 200px;
+        }
+
+        .search-form input[type="text"]::placeholder {
+            color: rgba(230, 230, 230, 0.7);
+        }
+
+        .search-form button {
+            padding: 0.5rem 1rem;
+            border: none;
+            background: var(--accent-color);
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .search-form button:hover {
+            background: var(--accent-hover);
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 80px auto 0;
+            padding: 2rem 1.5rem;
+            flex: 1;
+        }
+
+        footer {
+            background: rgba(22, 33, 62, 0.9);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            color: var(--text-light);
+            text-align: center;
+            padding: 1.5rem 0;
+            margin-top: auto;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        footer p {
+            margin: 0;
+            font-size: 0.9rem;
+        }
+
+        /* Cart badge */
+        .cart-badge {
+            position: relative;
+        }
+
+        .cart-badge::after {
+            content: attr(data-count);
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: var(--danger-color);
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: bold;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                gap: 10px;
+                padding: 1rem;
+            }
+
+            .nav-left, .nav-right {
+                width: 100%;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+
+            .search-form {
+                width: 100%;
+                order: 1;
+            }
+
+            .search-form input {
+                flex: 1;
+            }
+
+            main {
+                padding-top: 120px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            nav a {
+                padding: 0.5rem;
+                font-size: 0.9rem;
+            }
+
+            .search-form input[type="text"] {
+                min-width: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header id="site-header">
+        <nav>
+            <div class="nav-left">
+                <a href="{% url 'index' %}">
+                    <i class="fas fa-shopping-bag"></i>
+                    <strong>ShopEase</strong>
+                </a>
+                <a href="{% url 'about' %}">
+                    <i class="fas fa-info-circle"></i>
+                    <span class="nav-text">About</span>
+                </a>
+                <a href="{% url 'contact' %}">
+                    <i class="fas fa-envelope"></i>
+                    <span class="nav-text">Contact</span>
+                </a>
+                {% if user.is_authenticated %}
+                    <span><i class="fas fa-user"></i> <strong>{{ user.username }}</strong></span>
+                {% endif %}
+            </div>
+
+            <div class="nav-right">
+                <form class="search-form" method="get" action="{% url 'search' %}">
+                    <input type="text" name="q" placeholder="Search products..." required>
+                    <button type="submit"><i class="fas fa-search"></i></button>
+                </form>
+
+                {% if user.is_authenticated %}
+                    <a href="{% url 'cart_view' %}" class="cart-badge" data-count="{{ cart_count }}">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="nav-text">Cart</span>
+                    </a>
+                    <a href="{% url 'logout' %}">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span class="nav-text">Logout</span>
+                    </a>
+                {% else %}
+                    <a href="{% url 'login' %}">
+                        <i class="fas fa-sign-in-alt"></i>
+                        <span class="nav-text">Login</span>
+                    </a>
+                    <a href="{% url 'register' %}">
+                        <i class="fas fa-user-plus"></i>
+                        <span class="nav-text">Register</span>
+                    </a>
+                {% endif %}
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+        <p>&copy; 2025 ShopEase | Premium E-commerce Experience</p>
+    </footer>
+
+    <script>
+        // Hide header on scroll down, show on scroll up
+        let lastScrollTop = 0;
+        const header = document.getElementById("site-header");
+        const scrollThreshold = 100;
+
+        window.addEventListener("scroll", function() {
+            let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            
+            if (scrollTop > lastScrollTop && scrollTop > scrollThreshold) {
+                // Scroll down
+                header.style.top = "-100px";
+            } else {
+                // Scroll up
+                header.style.top = "0";
+            }
+            lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+        });
+
+        // Hide text on smaller screens
+        function handleResponsiveNav() {
+            const navTexts = document.querySelectorAll('.nav-text');
+            if (window.innerWidth < 768) {
+                navTexts.forEach(text => {
+                    text.style.display = 'none';
+                });
+            } else {
+                navTexts.forEach(text => {
+                    text.style.display = 'inline';
+                });
+            }
+        }
+
+        // Run on load and resize
+        window.addEventListener('load', handleResponsiveNav);
+        window.addEventListener('resize', handleResponsiveNav);
+    </script>
+</body>
+</html>

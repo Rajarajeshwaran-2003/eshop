@@ -1,0 +1,524 @@
+{% extends 'base.html' %}
+
+{% block title %}Secure Checkout - E-commerce{% endblock %}
+
+{% block content %}
+<section class="checkout-section animate__animated animate__fadeIn">
+    <div class="container">
+        <div class="section-header">
+            <h1 class="checkout-title">Secure Checkout</h1>
+            <div class="divider-gradient"></div>
+            <p class="checkout-subtitle">Complete your purchase with confidence</p>
+        </div>
+
+        <div class="checkout-grid">
+            <!-- Payment/Shipment Form -->
+            <div class="checkout-form-container glass-card">
+                <div class="form-stepper">
+                    <div class="step active">
+                        <span class="step-number">1</span>
+                        <span class="step-label">Shipping</span>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        <span class="step-label">Payment</span>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        <span class="step-label">Confirmation</span>
+                    </div>
+                </div>
+
+                <form class="checkout-form">
+                    <h3 class="form-section-title">Shipping Information</h3>
+                    
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" placeholder="your@email.com">
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="first-name">First Name</label>
+                            <input type="text" id="first-name" placeholder="John">
+                        </div>
+                        <div class="form-group">
+                            <label for="last-name">Last Name</label>
+                            <input type="text" id="last-name" placeholder="Doe">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="address">Street Address</label>
+                        <input type="text" id="address" placeholder="123 Main St">
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="city">City</label>
+                            <input type="text" id="city" placeholder="New York">
+                        </div>
+                        <div class="form-group">
+                            <label for="zip">ZIP Code</label>
+                            <input type="text" id="zip" placeholder="10001">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="country">Country</label>
+                        <select id="country">
+                            <option value="">Select Country</option>
+                            <option value="US">United States</option>
+                            <option value="IN">India</option>
+                            <option value="UK">United Kingdom</option>
+                        </select>
+                    </div>
+
+                    <h3 class="form-section-title">Payment Method</h3>
+                    
+                    <div class="payment-methods">
+                        <div class="payment-option active">
+                            <i class="fab fa-cc-stripe"></i>
+                            <span>Credit/Debit Card</span>
+                        </div>
+                        <div class="payment-option">
+                            <i class="fab fa-paypal"></i>
+                            <span>PayPal</span>
+                        </div>
+                        <div class="payment-option">
+                            <i class="fas fa-university"></i>
+                            <span>Bank Transfer</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="card-number">Card Number</label>
+                        <input type="text" id="card-number" placeholder="4242 4242 4242 4242">
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="expiry">Expiry Date</label>
+                            <input type="text" id="expiry" placeholder="MM/YY">
+                        </div>
+                        <div class="form-group">
+                            <label for="cvc">CVC</label>
+                            <input type="text" id="cvc" placeholder="123">
+                        </div>
+                    </div>
+
+                    <button type="submit" class="checkout-submit-btn pulse-hover">
+                        <i class="fas fa-lock"></i> Complete Secure Payment
+                    </button>
+                </form>
+            </div>
+
+            <!-- Order Summary -->
+            <div class="order-summary-container glass-card">
+                <h3 class="summary-title">Order Summary</h3>
+                
+                <div class="order-items">
+                    <div class="order-item">
+                        <div class="item-image" style="background-image: url('https://via.placeholder.com/80')"></div>
+                        <div class="item-details">
+                            <h4>Premium Wireless Headphones</h4>
+                            <p>1 × ₹12,999</p>
+                        </div>
+                    </div>
+                    <div class="order-item">
+                        <div class="item-image" style="background-image: url('https://via.placeholder.com/80')"></div>
+                        <div class="item-details">
+                            <h4>Smart Watch Pro</h4>
+                            <p>1 × ₹8,499</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="summary-divider"></div>
+
+                <div class="summary-row">
+                    <span>Subtotal</span>
+                    <span>₹21,498</span>
+                </div>
+                <div class="summary-row">
+                    <span>Shipping</span>
+                    <span>Free</span>
+                </div>
+                <div class="summary-row">
+                    <span>Tax</span>
+                    <span>₹1,290</span>
+                </div>
+
+                <div class="summary-divider"></div>
+
+                <div class="summary-total">
+                    <span>Total</span>
+                    <span>₹22,788</span>
+                </div>
+
+                <div class="secure-checkout-badge">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>100% Secure Checkout</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    :root {
+        --dark-bg: #1a1a2e;
+        --darker-bg: #16213e;
+        --primary-accent: #00b4d8;
+        --secondary-accent: #6e48aa;
+        --text-light: #e6f1ff;
+        --text-muted: #8892b0;
+        --glass-bg: rgba(22, 33, 62, 0.7);
+        --glass-border: rgba(255, 255, 255, 0.1);
+    }
+
+    /* Base Styles */
+    .checkout-section {
+        padding: 3rem 0;
+        background: linear-gradient(135deg, var(--darker-bg) 0%, var(--dark-bg) 100%);
+        min-height: 100vh;
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 1.5rem;
+    }
+
+    .section-header {
+        margin-bottom: 2.5rem;
+        text-align: center;
+    }
+
+    .divider-gradient {
+        height: 3px;
+        background: linear-gradient(90deg, var(--primary-accent), var(--secondary-accent));
+        width: 150px;
+        margin: 0.5rem auto;
+        border-radius: 3px;
+    }
+
+    .checkout-title {
+        font-size: 2.5rem;
+        background: linear-gradient(90deg, var(--primary-accent), var(--secondary-accent));
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        margin-bottom: 0.5rem;
+        font-weight: 700;
+    }
+
+    .checkout-subtitle {
+        color: var(--text-muted);
+        font-size: 1.1rem;
+    }
+
+    /* Checkout Grid Layout */
+    .checkout-grid {
+        display: grid;
+        grid-template-columns: 1.5fr 1fr;
+        gap: 2rem;
+    }
+
+    /* Glass Card Effect */
+    .glass-card {
+        background: var(--glass-bg);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border-radius: 16px;
+        border: 1px solid var(--glass-border);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        overflow: hidden;
+        padding: 2rem;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .glass-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+    }
+
+    /* Form Stepper */
+    .form-stepper {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 2rem;
+        position: relative;
+    }
+
+    .form-stepper::before {
+        content: '';
+        position: absolute;
+        top: 15px;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: rgba(255, 255, 255, 0.1);
+        z-index: 1;
+    }
+
+    .step {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        position: relative;
+        z-index: 2;
+    }
+
+    .step-number {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.1);
+        color: var(--text-muted);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 0.5rem;
+        font-weight: 600;
+    }
+
+    .step.active .step-number {
+        background: linear-gradient(135deg, var(--primary-accent), var(--secondary-accent));
+        color: white;
+    }
+
+    .step-label {
+        color: var(--text-muted);
+        font-size: 0.9rem;
+    }
+
+    .step.active .step-label {
+        color: var(--primary-accent);
+        font-weight: 600;
+    }
+
+    /* Form Styles */
+    .checkout-form {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    .form-section-title {
+        color: var(--primary-accent);
+        margin: 1rem 0 0.5rem;
+        font-size: 1.2rem;
+    }
+
+    .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+    }
+
+    label {
+        color: var(--text-light);
+        font-size: 0.9rem;
+        font-weight: 500;
+    }
+
+    input, select {
+        background: rgba(0, 0, 0, 0.2);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 8px;
+        padding: 0.75rem 1rem;
+        color: var(--text-light);
+        font-size: 1rem;
+        transition: all 0.3s ease;
+    }
+
+    input:focus, select:focus {
+        outline: none;
+        border-color: var(--primary-accent);
+        box-shadow: 0 0 0 2px rgba(0, 180, 216, 0.2);
+    }
+
+    /* Payment Methods */
+    .payment-methods {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0.75rem;
+        margin: 1rem 0;
+    }
+
+    .payment-option {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        padding: 1rem;
+        border-radius: 8px;
+        background: rgba(0, 0, 0, 0.2);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .payment-option i {
+        font-size: 1.5rem;
+        color: var(--text-muted);
+    }
+
+    .payment-option span {
+        font-size: 0.8rem;
+        color: var(--text-muted);
+    }
+
+    .payment-option.active {
+        background: rgba(0, 180, 216, 0.1);
+        border-color: var(--primary-accent);
+    }
+
+    .payment-option.active i,
+    .payment-option.active span {
+        color: var(--primary-accent);
+    }
+
+    /* Submit Button */
+    .checkout-submit-btn {
+        background: linear-gradient(135deg, var(--primary-accent) 0%, var(--secondary-accent) 100%);
+        color: white;
+        padding: 1rem;
+        border-radius: 8px;
+        font-weight: 600;
+        border: none;
+        cursor: pointer;
+        font-size: 1rem;
+        margin-top: 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.75rem;
+        transition: all 0.3s ease;
+    }
+
+    .checkout-submit-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 20px rgba(0, 180, 216, 0.4);
+    }
+
+    /* Order Summary */
+    .summary-title {
+        color: var(--primary-accent);
+        margin-bottom: 1.5rem;
+        font-size: 1.3rem;
+    }
+
+    .order-items {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .order-item {
+        display: flex;
+        gap: 1rem;
+    }
+
+    .item-image {
+        width: 60px;
+        height: 60px;
+        border-radius: 8px;
+        background-size: cover;
+        background-position: center;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .item-details h4 {
+        color: var(--text-light);
+        font-size: 0.95rem;
+        margin-bottom: 0.25rem;
+    }
+
+    .item-details p {
+        color: var(--text-muted);
+        font-size: 0.85rem;
+    }
+
+    .summary-divider {
+        height: 1px;
+        background: rgba(255, 255, 255, 0.1);
+        margin: 1rem 0;
+    }
+
+    .summary-row {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 0.75rem;
+        color: var(--text-muted);
+        font-size: 0.9rem;
+    }
+
+    .summary-total {
+        display: flex;
+        justify-content: space-between;
+        margin: 1.5rem 0;
+        color: var(--text-light);
+        font-size: 1.1rem;
+        font-weight: 600;
+    }
+
+    .secure-checkout-badge {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        color: var(--primary-accent);
+        font-size: 0.9rem;
+        margin-top: 1.5rem;
+        padding: 0.75rem;
+        background: rgba(0, 180, 216, 0.1);
+        border-radius: 8px;
+    }
+
+    /* Animations */
+    .pulse-hover:hover {
+        animation: pulse 1s infinite;
+    }
+
+    @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.02); }
+        100% { transform: scale(1); }
+    }
+
+    /* Responsive */
+    @media (max-width: 992px) {
+        .checkout-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    @media (max-width: 576px) {
+        .form-row {
+            grid-template-columns: 1fr;
+        }
+        
+        .payment-methods {
+            grid-template-columns: 1fr;
+        }
+        
+        .checkout-title {
+            font-size: 2rem;
+        }
+    }
+</style>
+
+<!-- Animation and Icon Libraries -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+{% endblock %}
